@@ -1,0 +1,11 @@
+#Mapping values
+#Tue Jun 17 14:20:22 CEST 2014
+CreatedById=CreatedById
+LastModifiedDate=LastModifiedDate
+CurrencyIsoCode=CurrencyIsoCode
+Id=OldId__c
+CreatedDate=CreatedDate
+TCP__c=TCP__r\:OldId__c
+RecordTypeId=RecordTypeId
+LastModifiedById=LastModifiedById
+TCP_Patient_Opportunity__c=TCP_Patient_Opportunity__r\:OldId__c

@@ -1,0 +1,42 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="standard_delete" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Dataloader Cliq.</description>
+		<property name="name" value="standard_delete"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="c:\Dev\ApexDataLoader\cliq_process\delete_for_delete\read\delete_for_delete.csv"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="csvRead"/>
+				<entry key="dataAccess.writeUTF8" value="true"/>
+				<entry key="process.enableExtractStatusOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="c:\Dev\ApexDataLoader\cliq_process\delete_for_delete\log"/>
+				<entry key="process.mappingFile" value="c:\Dev\ApexDataLoader\cliq_process\delete_for_delete\config\delete_for_delete.sdl"/>
+				<entry key="process.operation" value="delete"/>
+				<entry key="process.statusOutputDirectory" value="c:\Dev\ApexDataLoader\cliq_process\delete_for_delete\log"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/29.0"/>
+				<entry key="sfdc.entity" value="Contact"/>
+				<entry key="sfdc.extractionRequestSize" value="5000"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="5000"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="11e9c01ede56ee50aab74f014238e17c"/>
+				<entry key="sfdc.proxyHost" value=""/>
+				<entry key="sfdc.proxyNtlmDomain" value=""/>
+				<entry key="sfdc.proxyPassword" value="f80a8187cf4eec85"/>
+				<entry key="sfdc.proxyPort" value=""/>
+				<entry key="sfdc.proxyUsername" value=""/>
+				<entry key="sfdc.timeoutSecs" value="60"/>
+				<entry key="sfdc.useBulkApi" value="false"/>
+				<entry key="sfdc.username" value="kgalant@wellspect.com.fullsb"/>
+			</map>
+		</property>
+	</bean>
+</beans>

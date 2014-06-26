@@ -1,0 +1,21 @@
+#Mapping values
+#Tue Jun 17 11:36:27 CEST 2014
+User_Country__c=User_Country__c
+CurrencyIsoCode=CurrencyIsoCode
+Account_Site__c=Account_Site__c
+RecordTypeId=RecordTypeId
+Preferred_Hours__c=Preferred_Hours__c
+Preferred_Days__c=Preferred_Days__c
+Contact__c=Contact__r\:OldId__c
+Account__c=Account__r\:OldId__c
+Location_Movex__c=Location_Movex__c
+Description__c=Description__c
+Therapy_Area_U__c=Therapy_Area_U__c
+LastModifiedDate=LastModifiedDate
+CreatedDate=CreatedDate
+Id=OldId__c
+Profession_U__c=Profession_U__c
+Product_Area__c=Product_Area__c
+Profession__c=Profession__c
+LastModifiedById=LastModifiedById
+CreatedById=CreatedById

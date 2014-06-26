@@ -1,0 +1,20 @@
+# Created by Dataloader Cliq
+#
+# Create your field mapping list in the following format
+# <Your CSV Field1>=<Salesforce Field in Account>
+# NOTE: Salesforce Fields are case-sensitive. 
+
+# Example: 
+#createdbyid=CreatedBy
+#createddate=CreatedDate
+#ispersonaccount=IsPersonAccount
+#isdeleted=IsDeleted
+#lastactivitydate=LastActivityDate
+#lastmodifiedbyid=LastModifiedBy
+#lastmodifieddate=LastModifiedDate
+Name=Name
+ownerid=OwnerId
+RecordTypeId=RecordTypeId
+Id=OldId__c
+StageName=StageName
+CloseDate=CloseDate

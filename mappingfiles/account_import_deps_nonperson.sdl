@@ -1,0 +1,14 @@
+#Mapping values
+#Thu Jun 26 15:00:25 CEST 2014
+PRESCRIPTION_PROVIDER_U_US__C=Prescription_Provider_U_US__r\:OldId__c
+HOSPITAL_ACCOUNT_U_END__C=Hospital_Account_U_End__r\:OldId__c
+DISTRIBUTOR_U_US__C=Distributor_U_US__r\:OldId__c
+PRESCRIBING_MD__C=Prescribing_MD__r\:OldId__c
+PAYER_LOOKUP__C=Payer_Lookup__r\:OldId__c
+PARENTID=Parent\:OldId__c
+SPECIAL_CARE_TREATMENT_CONTACT_U_END__C=Special_Care_Treatment_Contact_U_End__r\:OldId__c
+SPECIAL_CARE_TREATMENT_ACCOUNT_U_END__C=Special_Care_Treatment_Account_U_End__r\:OldId__c
+TERRITORY_PLAN__C=Territory_Plan__r\:OldId__c
+MAIN_COMPETITOR_D__C=Main_Competitor_D__r\:OldId__c
+TERRITORY_PLAN_S__C=Territory_Plan_S__r\:OldId__c
+HOSPITAL_CONTACT_U_END__C=Hospital_Contact_U_End__r\:OldId__c

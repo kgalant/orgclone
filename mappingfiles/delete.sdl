@@ -1,0 +1,7 @@
+# Created by Dataloader Cliq
+#
+# Create your field mapping list in the following format
+# <Your CSV Field1>=<Salesforce Field in Contact>
+# NOTE: Salesforce Fields are case-sensitive. 
+id=Id
+

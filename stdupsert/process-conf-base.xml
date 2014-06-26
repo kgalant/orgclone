@@ -1,0 +1,45 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="standard_upsert" class="com.salesforce.dataloader.process.ProcessRunner" singleton="false">
+		<description>Created by Dataloader Cliq.</description>
+		<property name="name" value="standard_upsert"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="dataAccess.name" value="CSV"/>
+				<entry key="dataAccess.readUTF8" value="true"/>
+				<entry key="dataAccess.type" value="DATAACCESS"/>
+				<entry key="dataAccess.writeUTF8" value="true"/>
+				<entry key="process.enableExtractStatusOutput" value="true"/>
+				<entry key="process.enableLastRunOutput" value="true"/>
+				<entry key="process.lastRunOutputDirectory" value="LOGDIR"/>
+				<entry key="process.mappingFile" value="c:\Tools\ApexDataLoader\cliq_process\stdupsert\config\stdupsert.sdl"/>
+				<entry key="process.operation" value="OPERATION"/> <!-- <entry key="process.operation" value="upsert"/> -->
+				<entry key="process.statusOutputDirectory" value="LOGDIR"/>
+				<entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
+				<entry key="sfdc.bulkApiSerialMode" value="5000"/>
+				<entry key="sfdc.debugMessages" value="false"/>
+				<entry key="sfdc.enableRetries" value="true"/>
+				<entry key="sfdc.endpoint" value="ENDPOINT"/>
+				<entry key="sfdc.entity" value="ENTITY"/>
+				<!-- <entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/29.0"/>
+				<entry key="sfdc.entity" value="Territory_Plan__c"/> -->
+				<entry key="sfdc.externalIdField" value="EXTERNALID"/> <!-- <entry key="sfdc.externalIdField" value="OldId__c"/> -->
+				<entry key="sfdc.extractionRequestSize" value="500"/>
+				<entry key="sfdc.insertNulls" value="false"/>
+				<entry key="sfdc.loadBatchSize" value="100"/>
+				<entry key="sfdc.maxRetries" value="3"/>
+				<entry key="sfdc.minRetrySleepSecs" value="2"/>
+				<entry key="sfdc.noCompression" value="false"/>
+				<entry key="sfdc.password" value="PASSWORD"/> 
+				<entry key="sfdc.proxyHost" value=""/>
+				<entry key="sfdc.proxyNtlmDomain" value=""/>
+				<entry key="sfdc.proxyPassword" value="f80a8187cf4eec85"/>
+				<entry key="sfdc.proxyPort" value=""/>
+				<entry key="sfdc.proxyUsername" value=""/>
+				<entry key="sfdc.timeoutSecs" value="60"/>
+				<entry key="sfdc.useBulkApi" value="false"/>
+				<entry key="sfdc.username" value="USERNAME"/>
+			</map>
+		</property>
+	</bean>
+</beans>

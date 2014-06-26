@@ -1,0 +1,11 @@
+#Mapping values
+#Thu Jun 26 16:07:34 CEST 2014
+Hub_Account__c=Hub_Account__r\:OldId__c
+CreatedById=CreatedBy\:OldId__c
+LastModifiedDate=LastModifiedDate
+CurrencyIsoCode=CurrencyIsoCode
+Id=OldId__c
+CreatedDate=CreatedDate
+Name=Name
+Hub_Contact__c=Hub_Contact__r\:OldId__c
+LastModifiedById=LastModifiedBy\:OldId__c

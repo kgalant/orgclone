@@ -1,0 +1,27 @@
+#Mapping values
+#Tue Jun 17 12:56:37 CEST 2014
+
+CreatedById=CreatedById
+CreatedDate=CreatedDate
+CurrencyIsoCode=CurrencyIsoCode
+Hub_Account__c=Hub_Account__r\:OldId__c
+Hub_Contact__c=Hub_Contact__r\:OldId__c
+Id=OldId__c
+LastModifiedById=LastModifiedById
+LastModifiedDate=LastModifiedDate
+Name=Name
+
+Contract_D_IT__c=Contract_D_IT__c
+Description__c=Description__c
+HQ_Total_Inv_already_provided_D_IT__c=HQ_Total_Inv_already_provided_D_IT__c
+HQ_Total_Investment_D_IT__c=HQ_Total_Investment_D_IT__c
+Local_Total_Inv_already_provided_D_IT__c=Local_Total_Inv_already_provided_D_IT__c
+Local_Total_Investment_D_IT__c=Local_Total_Investment_D_IT__c
+Materials_HQ_D_IT__c=Materials_HQ_D_IT__c
+Materials_IT_D_IT__c=Materials_IT_D_IT__c
+Network_Type__c=Network_Type__c
+Product_Area__c=Product_Area__c
+RecordTypeId=RecordTypeId
+Study_start_year_D_IT__c=Study_start_year_D_IT__c
+Study_status_D_IT__c=Study_status_D_IT__c
+Study_type_D_IT__c=Study_type_D_IT__c

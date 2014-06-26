@@ -1,0 +1,11 @@
+#Mapping values
+#Tue Jun 17 14:30:17 CEST 2014
+CreatedById=CreatedById
+LastModifiedDate=LastModifiedDate
+CurrencyIsoCode=CurrencyIsoCode
+Id=OldId__c
+CreatedDate=CreatedDate
+TCP__c=TCP__r\:OldId__c
+OwnerId=OwnerId
+Campaign__c=Campaign__r\:OldId__c
+LastModifiedById=LastModifiedById
