@@ -13,26 +13,26 @@
       <property name="configOverrideMap">
          <map>
             <entry key="dataAccess.name"
-                   value="c:\Dev\dentsply\migration_final\files\contact\cases_to_delete.csv"/>
+                   value="c:\Dev\orgclone\files\Contact_Network_Member__c\Contact_Network_Member__c_to_delete.csv"/>
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvRead"/>
             <entry key="dataAccess.writeUTF8" value="true"/>
             <entry key="process.enableExtractStatusOutput" value="true"/>
             <entry key="process.enableLastRunOutput" value="true"/>
             <entry key="process.lastRunOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stddelete\log"/>
+                   value="c:\Dev\orgclone\stddelete\log"/>
             <entry key="process.mappingFile"
-                   value="c:\Dev\dentsply\migration_final\mappingfiles\delete.sdl"/>
+                   value="c:\Dev\orgclone\mappingfiles\delete.sdl"/>
             <entry key="process.operation" value="delete"/>
             <entry key="process.statusOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stddelete\log"/>
+                   value="c:\Dev\orgclone\stddelete\log"/>
             <entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
             <entry key="sfdc.bulkApiSerialMode" value="5000"/>
             <entry key="sfdc.debugMessages" value="false"/>
             <entry key="sfdc.enableRetries" value="true"/>
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
-            <entry key="sfdc.entity" value="Network__c"/>
+            <entry key="sfdc.entity" value="Contact_Network_Member__c"/>
             <entry key="sfdc.extractionRequestSize" value="5000"/>
             <entry key="sfdc.insertNulls" value="false"/>
             <entry key="sfdc.loadBatchSize" value="200"/>

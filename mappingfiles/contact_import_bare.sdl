@@ -5,13 +5,13 @@
 # NOTE: Salesforce Fields are case-sensitive. 
 
 # Example: 
-#createdbyid=CreatedById
-#createddate=CreatedDate
+createdbyid=CreatedById
+createddate=CreatedDate
 firstname=FirstName
 #ispersonaccount=IsPersonAccount
 #isdeleted=IsDeleted
-#lastmodifiedbyid=LastModifiedById
-#lastmodifieddate=LastModifiedDate
+lastmodifiedbyid=LastModifiedById
+lastmodifieddate=LastModifiedDate
 lastname=LastName
 name=Name
 ownerid=OwnerId

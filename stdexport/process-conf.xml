@@ -13,7 +13,7 @@
       <property name="configOverrideMap">
          <map>
             <entry key="dataAccess.name"
-                   value="c:\Dev\dentsply\migration_final\stdexport\output\Network__c.csv"/>
+                   value="c:\Dev\orgclone\stdexport\output\Contact_Network_Member__c.csv"/>
             <!-- c:\Dev\ApexDataLoader\cliq_process\standard_export\write\standard_export.csv -->
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvWrite"/>
@@ -21,11 +21,11 @@
             <entry key="process.enableExtractStatusOutput" value="true"/>
             <entry key="process.enableLastRunOutput" value="true"/>
             <entry key="process.lastRunOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stdexport\log"/>
+                   value="c:\Dev\orgclone\stdexport\log"/>
             <!-- c:\Dev\ApexDataLoader\cliq_process\standard_export\log -->
             <entry key="process.operation" value="extract"/>
             <entry key="process.statusOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stdexport\log"/>
+                   value="c:\Dev\orgclone\stdexport\log"/>
             <!-- c:\Dev\ApexDataLoader\cliq_process\standard_export\log -->
             <entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
             <entry key="sfdc.bulkApiSerialMode" value="5000"/>
@@ -34,10 +34,11 @@
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
             <!-- https://test.salesforce.com/services/Soap/u/29.0 -->
-            <entry key="sfdc.entity" value="Network__c"/>
+            <entry key="sfdc.entity" value="Contact_Network_Member__c"/>
             <!-- Account -->
             <entry key="sfdc.extractionRequestSize" value="500"/>
-            <entry key="sfdc.extractionSOQL" value="select id from network__c "/>
+            <entry key="sfdc.extractionSOQL"
+                   value="select id from Contact_Network_Member__c "/>
             <!-- SELECT Id, name FROM Account -->
             <entry key="sfdc.insertNulls" value="false"/>
             <entry key="sfdc.loadBatchSize" value="200"/>

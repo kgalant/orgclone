@@ -25,7 +25,7 @@ SET WRITEUSERNAME=kgalant@wellspect.com.fullsb
 rem SET WRITEPASSWORD=11e9c01ede56ee50aab74f014238e17c
 SET WRITEPASSWORD=ce9f52eab752286ade885e5c3c4668b8
 SET LOGPREFIX=%date:~6,4%%date:~3,2%%date:~0,2%_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
-SET LOGFILE=%BASEDIR%logs\log-%LOGPREFIX%.txt
+SET LOGFILE="%BASEDIR%logs\log-%LOGPREFIX%.txt"
 SET LIMIT=
 SET FILEPREFIX=%1
 SET BULKAPI=true
@@ -70,9 +70,11 @@ for /f %%d in ('dir /a:-d /b %BASEDIR%configs\%FILEPREFIX%') do (
 	SET UPS=0
 	SET EXPMAP=0
 	SET DOFIRSTSQL=0
+	SET UNLOADWHERE=
    
 		for /f "eol=# tokens=1,2 delims=:" %%a in (%BASEDIR%configs\%%d) do (
 			SET %%a=%%b
+			rem echo SET %%a=%%b
 		)
 	
 	@echo ******************************
@@ -88,7 +90,7 @@ rem 	echo FIELDSTOREMAP=!FIELDSTOREMAP!
 rem 	echo FILENAME=!FILENAME!
 rem 	echo MAPPEDFILENAME=!MAPPEDFILENAME!
 rem 	echo SFMAPPINGFILE=!SFMAPPINGFILE!
-rem 	echo OBJECT=%OBJECT%
+rem echo UNLOADWHERE=%UNLOADWHERE%
 
 	IF !EXP!==1 (
 		@echo Max rowcount for export: !LIMIT!
@@ -107,6 +109,14 @@ rem 	echo OBJECT=%OBJECT%
 		@echo Skipping: Truncate for !JOBDESC!
 	)
 	
+		
+	IF !FARTMAP!==1 (
+		call :Fart !FILENAME! !FARTMAPPING!
+	) ELSE (
+		@echo Skipping: FART remap for !JOBDESC!
+	)
+	
+	
 	IF !LOADPGSQL!==1 (
 		call :LoadToPostgres !OBJECT! "!FIELDSTRING!" !FILENAME!
 	) ELSE (
@@ -120,13 +130,7 @@ rem 	echo OBJECT=%OBJECT%
 	) ELSE (
 		@echo Skipping: Load into Postgres for !JOBDESC!
 	)
-	
-	IF !FARTMAP!==1 (
-		call :Fart !FILENAME! !FARTMAPPING!
-	) ELSE (
-		@echo Skipping: Load into Postgres for !JOBDESC!
-	)
-	
+
 	IF !DOFIRSTSQL!==1 (
 		call :DoSQL "!FIRSTSQL!"
 	)
@@ -134,7 +138,7 @@ rem 	echo OBJECT=%OBJECT%
 	IF !UNLOADPGSQL!==1 (
 	rem call :UnloadFromPostgres !OBJECT! "!FIELDSTRING!" !MAPPEDFILENAME!
 		IF [!FIELDSTRINGEXPORT!]==[] (
-			call :UnloadFromPostgres !OBJECT! "!FIELDSTRING!" !MAPPEDFILENAME!
+			call :UnloadFromPostgres !OBJECT! "!FIELDSTRING!" !MAPPEDFILENAME! "!UNLOADWHERE!"
 		) ELSE (
 			call :UnloadFromPostgres !OBJECT! "!FIELDSTRINGEXPORT!" !MAPPEDFILENAME!
 		)
@@ -235,7 +239,7 @@ rem *****************************************************
 
 SET FILETS=_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
 
-@java -jar c:\tools\saxon9he.jar -s:%BASEDIR%%STDEXPORT%\process-conf-base.xml -xsl:PrepExportConfig.xsl -o:%BASEDIR%%STDEXPORT%\process-conf-%~1.xml csv=%BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv dataaccess=csvWrite logdir=%BASEDIR%%STDEXPORT%\log entity=%~2 soql="%~3 !LIMIT!" operation=extract endpoint=%~5 username=%~6 password=%~7 bulkapi=!BULKAPI!  batchsize=!BATCHSIZE!
+@java -jar c:\tools\saxon9he.jar -s:%BASEDIR%%STDEXPORT%\process-conf-base.xml -xsl:PrepExportConfig.xsl -o:%BASEDIR%%STDEXPORT%\process-conf-%~1.xml csv="%BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv" dataaccess=csvWrite logdir=%BASEDIR%%STDEXPORT%\log entity=%~2 soql="%~3 !LIMIT!" operation=extract endpoint=%~5 username=%~6 password=%~7 bulkapi=!BULKAPI!  batchsize=!BATCHSIZE!
 
 
 @type %BASEDIR%%STDEXPORT%\doctype.txt %BASEDIR%%STDEXPORT%\process-conf-%~1.xml > %BASEDIR%%STDEXPORT%\process-conf.xml 2>>%LOGFILE%
@@ -249,7 +253,7 @@ IF NOT EXIST %BASEFILEDIR%%~1 (
 	@mkdir %BASEFILEDIR%%~1
 )
 
-move %BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv %~4
+move "%BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv" %~4
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
 
@@ -372,7 +376,8 @@ rem *****************************************************
 @echo *                                                         *
 @echo * !OBJECT! - Remap %~1 in PGSQL
 @echo * %time%: calling database command 
-%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "UPDATE !OBJECT! SET %~1 = 'cannot_map' WHERE id in (select id from !OBJECT! t left join mapping_master m on (t.%~1=m.dentsplyid) WHERE m.wellspectid is null and %~1<>''); UPDATE !OBJECT! SET %~1 = COALESCE(rt.wellspectid, 'cannot map') FROM (SELECT m.wellspectid, m.dentsplyid FROM mapping_master m) rt WHERE !OBJECT!.%~1 = rt.dentsplyid; "
+rem %PSQLCMD% -U %DBUSER% -d %DBNAME% -c "UPDATE !OBJECT! SET %~1 = 'cannot_map' WHERE id in (select id from !OBJECT! t left join mapping_master m on (t.%~1=m.dentsplyid) WHERE m.wellspectid is null and %~1<>''); UPDATE !OBJECT! SET %~1 = COALESCE(rt.wellspectid, 'cannot map') FROM (SELECT m.wellspectid, m.dentsplyid FROM mapping_master m WHERE m.dentsplyid is not null and m.dentsplyid<>'') rt WHERE !OBJECT!.%~1 = rt.dentsplyid; "
+%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "UPDATE !OBJECT! SET %~1 = rt.wellspectid FROM (SELECT m.wellspectid, m.dentsplyid FROM mapping_master m WHERE m.dentsplyid is not null and m.dentsplyid<>'') rt WHERE !OBJECT!.%~1 = rt.dentsplyid; "
 @echo * %time%: database command complete
 @echo *                                                         *
 @echo ***********************************************************
@@ -405,7 +410,7 @@ rem * Expects following parameters to be set:			*
 rem * 1 - object										*
 rem * 2 - Field string									*
 rem * 3 - Filename to load from 						*
-rem *													*
+rem * 4 - WHERE-clause (if any)													*
 rem * Will load the FILENAME into Postgres			 	*
 rem *													*
 rem *****************************************************
@@ -414,7 +419,7 @@ rem *****************************************************
 
 :UnloadFromPostgres
 @echo !OBJECT! - Unload from PostgreSQL
-%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "COPY (SELECT %~2 FROM %~1) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
+%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "COPY (SELECT %~2 FROM %~1 %~4) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
 
@@ -433,7 +438,7 @@ rem *****************************************************
 :UpdateDBMappingTable
 @echo !OBJECT! - Update PostgreSQL MappingTable
 
-%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "CREATE LOCAL TEMPORARY TABLE mapping_full_temp (   dentsplyid VARCHAR(18),   wellspectid VARCHAR(18),   tablekey VARCHAR(255) )  ON COMMIT PRESERVE ROWS;  COPY mapping_full_temp (wellspectid, dentsplyid, tablekey) FROM '%~1' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;  DELETE FROM mapping_master WHERE dentsplyid IN (select dentsplyid from mapping_full_temp);  INSERT INTO mapping_master(dentsplyid, wellspectid, tablekey) SELECT dentsplyid, wellspectid, '%~2_' || tablekey FROM mapping_full_temp;       DROP TABLE mapping_full_temp;"
+%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "CREATE LOCAL TEMPORARY TABLE mapping_full_temp (   dentsplyid VARCHAR(18),   wellspectid VARCHAR(18),   tablekey VARCHAR(255) )  ON COMMIT PRESERVE ROWS;  COPY mapping_full_temp (wellspectid, dentsplyid, tablekey) FROM '%~1' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;  DELETE FROM mapping_master WHERE dentsplyid IN (select dentsplyid from mapping_full_temp) or wellspectid in (select wellspectid from mapping_full_temp) or tablekey like '%~2_%%';  INSERT INTO mapping_master(dentsplyid, wellspectid, tablekey) SELECT dentsplyid, wellspectid, '%~2_' || tablekey FROM mapping_full_temp WHERE dentsplyid is not null and dentsplyid<>'' and wellspectid is not null and wellspectid<>'';       DROP TABLE mapping_full_temp;"
 
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
