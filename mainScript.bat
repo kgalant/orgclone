@@ -29,7 +29,9 @@ SET LOGFILE="%BASEDIR%logs\log-%LOGPREFIX%.txt"
 SET LIMIT=
 SET FILEPREFIX=%1
 SET BULKAPI=true
-SET BATCHSIZE=200
+SET BATCHSIZE=5000
+
+SET JAVAMEM=-Xmx1200m
 
 @echo Log file: %LOGFILE%
 
@@ -140,7 +142,7 @@ rem echo UNLOADWHERE=%UNLOADWHERE%
 		IF [!FIELDSTRINGEXPORT!]==[] (
 			call :UnloadFromPostgres !OBJECT! "!FIELDSTRING!" !MAPPEDFILENAME! "!UNLOADWHERE!"
 		) ELSE (
-			call :UnloadFromPostgres !OBJECT! "!FIELDSTRINGEXPORT!" !MAPPEDFILENAME!
+			call :UnloadFromPostgres !OBJECT! "!FIELDSTRINGEXPORT!" !MAPPEDFILENAME! "!UNLOADWHERE!"
 		)
 	) ELSE (
 		@echo Requested not to Unload from Postgres for !JOBDESC! by parameter set
@@ -245,7 +247,7 @@ SET FILETS=_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
 @type %BASEDIR%%STDEXPORT%\doctype.txt %BASEDIR%%STDEXPORT%\process-conf-%~1.xml > %BASEDIR%%STDEXPORT%\process-conf.xml 2>>%LOGFILE%
 
 @echo %time%: Calling export using %~6
-@java -cp %DLPATH%\* -Dsalesforce.config.dir=%BASEDIR%%STDEXPORT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_export >> %LOGFILE% 2>&1
+@java -cp %DLPATH%\* %JAVAMEM% -Dsalesforce.config.dir=%BASEDIR%%STDEXPORT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_export >> %LOGFILE% 2>&1
 rem call %DLPATH%\Java\bin\java.exe -cp %DLPATH%\* -Dsalesforce.config.dir=%BASEDIR%%STDEXPORT% com.salesforce.dataloader.process.ProcessRunner process.name=standard_export
 @echo %time%: Export complete
 
@@ -283,7 +285,7 @@ rem *****************************************************
 
 
 @echo %time%: Calling import using %WRITEUSERNAME%
-@java -cp %DLPATH%\* -Dsalesforce.config.dir=%BASEDIR%%STDINSERT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_insert >> %LOGFILE% 2>&1
+@java -cp %DLPATH%\* %JAVAMEM% -Dsalesforce.config.dir=%BASEDIR%%STDINSERT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_insert >> %LOGFILE% 2>&1
 @echo %time%: Import complete
 
 rem this is CALLed, so we need to Exit /b instead of the GOTO
@@ -313,7 +315,7 @@ rem *****************************************************
 @type %BASEDIR%%STDUPSERT%\doctype.txt %BASEDIR%%STDUPSERT%\process-conf-%OBJECT%.xml > %BASEDIR%%STDUPSERT%\process-conf.xml  2>>%LOGFILE%
 
 @echo %time%: Calling upsert
-@java -cp %DLPATH%\* -Dsalesforce.config.dir=%BASEDIR%%STDUPSERT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_upsert >> %LOGFILE% 2>&1
+@java -cp %DLPATH%\* %JAVAMEM% -Dsalesforce.config.dir=%BASEDIR%%STDUPSERT%\ com.salesforce.dataloader.process.ProcessRunner process.name=standard_upsert >> %LOGFILE% 2>&1
 @echo %time%: Upsert complete
 
 rem this is CALLed, so we need to Exit /b instead of the GOTO
@@ -419,6 +421,7 @@ rem *****************************************************
 
 :UnloadFromPostgres
 @echo !OBJECT! - Unload from PostgreSQL
+rem @echo "COPY (SELECT %~2 FROM %~1 %~4) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
 %PSQLCMD% -U %DBUSER% -d %DBNAME% -c "COPY (SELECT %~2 FROM %~1 %~4) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b

@@ -10,6 +10,7 @@ Id=OldId__c
 LastModifiedById=LastModifiedById
 LastModifiedDate=LastModifiedDate
 Name=Name
+RecordTypeId=RecordTypeId
 
 Contract_D_IT__c=Contract_D_IT__c
 Description__c=Description__c
@@ -21,7 +22,8 @@ Materials_HQ_D_IT__c=Materials_HQ_D_IT__c
 Materials_IT_D_IT__c=Materials_IT_D_IT__c
 Network_Type__c=Network_Type__c
 Product_Area__c=Product_Area__c
-RecordTypeId=RecordTypeId
 Study_start_year_D_IT__c=Study_start_year_D_IT__c
 Study_status_D_IT__c=Study_status_D_IT__c
 Study_type_D_IT__c=Study_type_D_IT__c
+
+

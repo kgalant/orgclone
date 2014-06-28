@@ -14,9 +14,9 @@ SET PGPASSWORD=14707796
 SET DBNAME=dentsply_fullsb
 SET DBUSER=postgres
 
-SET ITEMTODELETE=%1
 
-echo Deleting %1
+
+
 
 rem salesforce params
 
@@ -29,23 +29,12 @@ SET WRITEPASSWORD=ce9f52eab752286ade885e5c3c4668b8
 SET LOGPREFIX=%date:~6,4%%date:~3,2%%date:~0,2%_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
 SET LOGFILE=%BASEDIR%logs\log-%LOGPREFIX%.txt
 rem SET LIMIT=LIMIT 10000
-SET FILEPREFIX=%1
-SET BULKAPI=false
-SET BATCHSIZE=5000
-
-IF NOT DEFINED FILEPREFIX (
-	SET FILEPREFIX=0*
-)
 
 rem assuming directory structure going out from the place where this batch file resides
 SET BASEDIR=%~dp0
 SET BASEFILEDIR=%BASEDIR%files\
 SET MAPPINGDIR=%BASEDIR%mappingfiles
 SET CONFIGSDIR=%BASEDIR%configs
-
-SET CLIQ=c:\Dev\ApexDataLoader\cliq_process\
-SET PSQLCMD="C:\Program Files\PostgreSQL\9.3\bin\psql.exe"
-SET BATDIR=%~dp0
 
 SET STDEXPORT=stdexport
 SET STDDELETE=stddelete
@@ -56,50 +45,30 @@ SET DLPATH=c:\Dev\ApexDataLoader
 @start c:\tools\baretail.exe -ws 1 -tc 4 -ti 3 %LOGFILE%
 
 
-for /f %%d in ('dir /a:-d /b %BASEDIR%configs\%FILEPREFIX%') do (
-   @echo Processing file %%d
+for %%f in (%*) do (
 
-	SET EXPFORDELETE=0
-	SET DEL=0
+	@echo Processing file %%f
+
+	SET ITEMTODELETE=%%f
+
+	echo Deleting %%f
+
+	SET DELETEFILENAME=%BASEFILEDIR%%%f\%%f_to_delete.csv
+	SET OBJECT=%%f 
+	SET JOBDESC=Delete %%f
+	SET SOQL=select id from %%f
+	SET BULKAPI=false
+	SET BATCHSIZE=10000
+	SET ENTITY=%%f
+	SET SFMAPPINGFILE=delete.sdl
    
-		for /f "eol=# tokens=1,2 delims=:" %%a in (%BASEDIR%configs\%%d) do (
-			SET %%a=%%b
-		)
+	call :StandardExport !OBJECT! !ENTITY! "!SOQL!" !DELETEFILENAME! !READENDPOINT! !READUSERNAME! !READPASSWORD!
+	call :StandardDelete !OBJECT! !ENTITY! %MAPPINGDIR%\!SFMAPPINGFILE! !DELETEFILENAME!
 	
-	@echo ******************************
-	@echo !JOBDESC!
-	@echo ******************************
-	
-rem		echo FIELDSTRING=!FIELDSTRING!
-rem 	echo SOQL=!SOQL!
-rem 	echo MAPPINGSOQL=!MAPPINGSOQL!
-rem 	echo OLDNEWIDFILENAME=!OLDNEWIDFILENAME!
-rem 	echo ENTITY=!ENTITY!
-rem 	echo FIELDSTOREMAP=!FIELDSTOREMAP!
-rem 	echo FILENAME=!FILENAME!
-rem 	echo MAPPEDFILENAME=!MAPPEDFILENAME!
-rem 	echo SFMAPPINGFILE=!SFMAPPINGFILE!
-rem 	echo OBJECT=%OBJECT%
-
-
-	
-
-	IF !EXPFORDELETE!==1 (
-		call :StandardExport !OBJECT! !ENTITY! "!SOQL!" !DELETEFILENAME! !READENDPOINT! !READUSERNAME! !READPASSWORD!
-	) ELSE (
-		@echo Requested not to Export for !JOBDESC! by parameter set
-	)
-
-	
-	IF !DEL!==1 (
-		call :StandardDelete !OBJECT! !ENTITY! %MAPPINGDIR%\!SFMAPPINGFILE! !DELETEFILENAME!
-	) ELSE (
-		@echo Requested not to delete for !JOBDESC! by parameter set
-	)
 )
 
 exit /b
-
+exit /b
 
 
 @echo off
@@ -160,7 +129,7 @@ rem *****************************************************
 
 @java -jar c:\tools\saxon9he.jar -s:%BASEDIR%%STDDELETE%\process-conf-base.xml -xsl:PrepExportConfig.xsl -o:%BASEDIR%%STDDELETE%\process-conf-%~1.xml csv=%~4 dataaccess=csvRead logdir=%BASEDIR%%STDDELETE%\log mappingfile=%~3 entity=%~2 operation=delete endpoint=%WRITEENDPOINT% username=%WRITEUSERNAME% password=%WRITEPASSWORD% bulkapi=!BULKAPI! batchsize=!BATCHSIZE!
 
-@type %BASEDIR%%STDDELETE%\doctype.txt %BASEDIR%%STDDELETE%\process-conf-%OBJECT%.xml > %BASEDIR%%STDDELETE%\process-conf.xml  2>>%LOGFILE%
+@type %BASEDIR%%STDDELETE%\doctype.txt %BASEDIR%%STDDELETE%\process-conf-%~1.xml > %BASEDIR%%STDDELETE%\process-conf.xml  2>>%LOGFILE%
 
 @echo %time%: Apex DataLoader config file (process-conf.xml) completed
 

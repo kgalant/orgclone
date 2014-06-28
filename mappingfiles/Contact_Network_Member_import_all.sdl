@@ -1,11 +1,11 @@
 #Mapping values
 #Tue Jun 17 11:16:09 CEST 2014
-Response_ATN__c=Response_ATN__c
+Contact_Network_Member__c=Contact_Network_Member__r\:OldId__c
 CreatedById=CreatedById
-LastModifiedDate=LastModifiedDate
+CreatedDate=CreatedDate
 CurrencyIsoCode=CurrencyIsoCode
 Id=OldId__c
-CreatedDate=CreatedDate
-Contact_Network_Member__c=Contact_Network_Member__r\:OldId__c
 LastModifiedById=LastModifiedById
+LastModifiedDate=LastModifiedDate
 Network__c=Network__r\:OldId__c
+Response_ATN__c=Response_ATN__c

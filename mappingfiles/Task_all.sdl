@@ -1,0 +1,11 @@
+#Mapping values
+#Tue Jun 17 12:56:37 CEST 2014
+
+Id=OldId__c
+CurrencyIsoCode=CurrencyIsoCode
+RecordTypeId=RecordTypeId
+CreatedDate=CreatedDate
+CreatedById=CreatedById
+LastModifiedDate=LastModifiedDate
+LastModifiedById=LastModifiedById
+OwnerId=OwnerId

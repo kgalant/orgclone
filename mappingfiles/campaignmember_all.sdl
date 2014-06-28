@@ -1,0 +1,12 @@
+#Mapping values
+#Sat Jun 28 20:40:12 CEST 2014
+id=OldId__c
+CreatedById=CreatedById
+LastModifiedDate=LastModifiedDate
+CurrencyIsoCode=CurrencyIsoCode
+LeadId=LeadId
+CreatedDate=CreatedDate
+ContactId=ContactId
+Status=Status
+CampaignId=CampaignId
+LastModifiedById=LastModifiedById
