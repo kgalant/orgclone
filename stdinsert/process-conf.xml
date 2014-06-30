@@ -13,7 +13,7 @@
       <property name="configOverrideMap">
          <map>
             <entry key="dataAccess.name"
-                   value="c:\Dev\orgclone\files\Network__c\network_bare_remapped.csv"/>
+                   value="c:\Dev\orgclone\files\FeedItem\FeedItem_remapped.csv"/>
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvRead"/>
             <entry key="dataAccess.writeUTF8" value="true"/>
@@ -22,7 +22,7 @@
             <entry key="process.lastRunOutputDirectory"
                    value="c:\Dev\orgclone\stdinsert\log"/>
             <entry key="process.mappingFile"
-                   value="c:\Dev\orgclone\mappingfiles\network_all.sdl"/>
+                   value="c:\Dev\orgclone\mappingfiles\FeedItem.sdl"/>
             <entry key="process.operation" value="insert"/>
             <entry key="process.statusOutputDirectory"
                    value="c:\Dev\orgclone\stdinsert\log"/>
@@ -32,7 +32,7 @@
             <entry key="sfdc.enableRetries" value="true"/>
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
-            <entry key="sfdc.entity" value="Network__c"/>
+            <entry key="sfdc.entity" value="FeedItem"/>
             <entry key="sfdc.extractionRequestSize" value="500"/>
             <entry key="sfdc.insertNulls" value="false"/>
             <entry key="sfdc.loadBatchSize" value="5000"/>

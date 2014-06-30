@@ -57,7 +57,7 @@ for %%f in (%*) do (
 	SET OBJECT=%%f 
 	SET JOBDESC=Delete %%f
 	SET SOQL=select id from %%f
-	SET BULKAPI=false
+	SET BULKAPI=true
 	SET BATCHSIZE=10000
 	SET ENTITY=%%f
 	SET SFMAPPINGFILE=delete.sdl

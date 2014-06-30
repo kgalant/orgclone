@@ -24,8 +24,11 @@ SET WRITEENDPOINT=https://test.salesforce.com/services/Soap/u/29.0
 SET WRITEUSERNAME=kgalant@wellspect.com.fullsb
 rem SET WRITEPASSWORD=11e9c01ede56ee50aab74f014238e17c
 SET WRITEPASSWORD=ce9f52eab752286ade885e5c3c4668b8
+set FILETS=%DATE:/=-%@%TIME::=.%
+SET FILETS=%FILETS: =%
+SET FILETS=%FILETS:,=.%
 SET LOGPREFIX=%date:~6,4%%date:~3,2%%date:~0,2%_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
-SET LOGFILE=%BASEDIR%logs\log-%LOGPREFIX%.txt
+SET LOGFILE=%BASEDIR%logs\log-!FILETS!.txt
 SET LIMIT=
 SET FILEPREFIX=%1
 SET BULKAPI=true
@@ -136,9 +139,15 @@ exit /b
 @echo !JOBDESC! - StandardExport
 @echo %time%: Making Apex DataLoader config file (process-conf.xml)
 
-SET FILETS=_%time:~0,2%.%time:~3,2%.%time:~6,2%.%time:~9,2%
+Setlocal EnableDelayedExpansion
 
-@java -jar c:\tools\saxon9he.jar -s:%BASEDIR%%STDEXPORT%\process-conf-base.xml -xsl:PrepExportConfig.xsl -o:%BASEDIR%%STDEXPORT%\process-conf-%~1.xml csv=%BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv dataaccess=csvWrite logdir=%BASEDIR%%STDEXPORT%\log entity=%~2 soql="%~3 !LIMIT!" operation=extract endpoint=%~5 username=%~6 password=%~7 bulkapi=!BULKAPI!  batchsize=!BATCHSIZE!
+set FILETS=%DATE:/=-%@%TIME::=.%
+SET FILETS=%FILETS: =%
+SET FILETS=%FILETS:,=.%
+
+SET OUTPUTFILE=%BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv
+
+@java -jar c:\tools\saxon9he.jar -s:%BASEDIR%%STDEXPORT%\process-conf-base.xml -xsl:PrepExportConfig.xsl -o:%BASEDIR%%STDEXPORT%\process-conf-%~1.xml csv=!OUTPUTFILE! dataaccess=csvWrite logdir=%BASEDIR%%STDEXPORT%\log entity=%~2 soql="%~3 !LIMIT!" operation=extract endpoint=%~5 username=%~6 password=%~7 bulkapi=!BULKAPI!  batchsize=!BATCHSIZE!
 
 
 @type %BASEDIR%%STDEXPORT%\doctype.txt %BASEDIR%%STDEXPORT%\process-conf-%~1.xml > %BASEDIR%%STDEXPORT%\process-conf.xml 2>>%LOGFILE%
@@ -151,8 +160,12 @@ rem call %DLPATH%\Java\bin\java.exe -cp %DLPATH%\* -Dsalesforce.config.dir=%BASE
 IF NOT EXIST %BASEFILEDIR%%~1 (
 	@mkdir %BASEFILEDIR%%~1
 )
-
-move %BASEDIR%%STDEXPORT%\output\%~1_!FILETS!.csv %~4
+@echo on
+@echo OUTPUTFILE: !OUTPUTFILE!
+Setlocal EnableDelayedExpansion
+@echo move !OUTPUTFILE! %~4
+move !OUTPUTFILE! %~4
+@echo off
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
 

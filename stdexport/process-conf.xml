@@ -13,7 +13,7 @@
       <property name="configOverrideMap">
          <map>
             <entry key="dataAccess.name"
-                   value="c:\Dev\orgclone\stdexport\output\Contact_Network_Member__c.csv"/>
+                   value="c:\Dev\orgclone\stdexport\output\event.csv"/>
             <!-- c:\Dev\ApexDataLoader\cliq_process\standard_export\write\standard_export.csv -->
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvWrite"/>
@@ -34,14 +34,13 @@
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
             <!-- https://test.salesforce.com/services/Soap/u/29.0 -->
-            <entry key="sfdc.entity" value="Contact_Network_Member__c"/>
+            <entry key="sfdc.entity" value="event"/>
             <!-- Account -->
             <entry key="sfdc.extractionRequestSize" value="500"/>
-            <entry key="sfdc.extractionSOQL"
-                   value="select id from Contact_Network_Member__c "/>
+            <entry key="sfdc.extractionSOQL" value="select id from event "/>
             <!-- SELECT Id, name FROM Account -->
             <entry key="sfdc.insertNulls" value="false"/>
-            <entry key="sfdc.loadBatchSize" value="200"/>
+            <entry key="sfdc.loadBatchSize" value="10000"/>
             <entry key="sfdc.maxRetries" value="3"/>
             <entry key="sfdc.minRetrySleepSecs" value="2"/>
             <entry key="sfdc.noCompression" value="false"/>
@@ -53,7 +52,7 @@
             <entry key="sfdc.proxyPort" value=""/>
             <entry key="sfdc.proxyUsername" value=""/>
             <entry key="sfdc.timeoutSecs" value="60"/>
-            <entry key="sfdc.useBulkApi" value="false"/>
+            <entry key="sfdc.useBulkApi" value="true"/>
             <entry key="sfdc.username" value="kgalant@wellspect.com.fullsb"/>
             <!-- kgalant@dentsply.com.fullsb -->
          </map>

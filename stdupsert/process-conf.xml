@@ -12,35 +12,34 @@
       <property name="name" value="standard_upsert"/>
       <property name="configOverrideMap">
          <map>
-            <entry key="dataAccess.name"
-                   value="c:\Dev\dentsply\migration_final\files\account\account_fldset3_nonperson.csv"/>
+            <entry key="dataAccess.name" value="c:\Dev\orgclone\files\Task\Task.csv"/>
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvRead"/>
             <entry key="dataAccess.writeUTF8" value="true"/>
             <entry key="process.enableExtractStatusOutput" value="true"/>
             <entry key="process.enableLastRunOutput" value="true"/>
             <entry key="process.lastRunOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stdupsert\log"/>
+                   value="c:\Dev\orgclone\stdupsert\log"/>
             <entry key="process.mappingFile"
-                   value="c:\Dev\dentsply\migration_final\mappingfiles\account_import.sdl"/>
+                   value="c:\Dev\orgclone\mappingfiles\Task_all.sdl"/>
             <entry key="process.operation" value="upsert"/>
             <!-- <entry key="process.operation" value="upsert"/> -->
             <entry key="process.statusOutputDirectory"
-                   value="c:\Dev\dentsply\migration_final\stdupsert\log"/>
+                   value="c:\Dev\orgclone\stdupsert\log"/>
             <entry key="sfdc.bulkApiCheckStatusInterval" value="5000"/>
             <entry key="sfdc.bulkApiSerialMode" value="5000"/>
             <entry key="sfdc.debugMessages" value="false"/>
             <entry key="sfdc.enableRetries" value="true"/>
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
-            <entry key="sfdc.entity" value="Account"/>
+            <entry key="sfdc.entity" value="Task"/>
             <!-- <entry key="sfdc.endpoint" value="https://test.salesforce.com/services/Soap/u/29.0"/>
 				<entry key="sfdc.entity" value="Territory_Plan__c"/> -->
             <entry key="sfdc.externalIdField" value="OldId__c"/>
             <!-- <entry key="sfdc.externalIdField" value="OldId__c"/> -->
             <entry key="sfdc.extractionRequestSize" value="500"/>
             <entry key="sfdc.insertNulls" value="false"/>
-            <entry key="sfdc.loadBatchSize" value="5000"/>
+            <entry key="sfdc.loadBatchSize" value="10000"/>
             <entry key="sfdc.maxRetries" value="3"/>
             <entry key="sfdc.minRetrySleepSecs" value="2"/>
             <entry key="sfdc.noCompression" value="false"/>

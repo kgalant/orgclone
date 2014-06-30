@@ -358,6 +358,10 @@ rem *****************************************************
 @echo %time%: calling database command
 %PSQLCMD% -U %DBUSER% -d %DBNAME% -c "COPY %~1 (%~2) FROM '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
 @echo %time%: database command complete
+@echo %time%: calling database vacuum
+%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "VACUUM ANALYZE %~1;"
+%PSQLCMD% -U %DBUSER% -d %DBNAME% -c "VACUUM ANALYZE mapping_master;"
+@echo %time%: database vaccum complete
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
 
@@ -421,8 +425,10 @@ rem *****************************************************
 
 :UnloadFromPostgres
 @echo !OBJECT! - Unload from PostgreSQL
+@echo %time%: calling database command 
 rem @echo "COPY (SELECT %~2 FROM %~1 %~4) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
 %PSQLCMD% -U %DBUSER% -d %DBNAME% -c "COPY (SELECT %~2 FROM %~1 %~4) TO '%~3' DELIMITER ',' CSV ENCODING 'UTF-8' NULL '' HEADER;"
+@echo %time%: database command complete
 rem this is CALLed, so we need to Exit /b instead of the GOTO
 exit /b
 

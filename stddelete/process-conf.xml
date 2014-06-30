@@ -13,7 +13,7 @@
       <property name="configOverrideMap">
          <map>
             <entry key="dataAccess.name"
-                   value="c:\Dev\orgclone\files\Contact_Network_Member__c\Contact_Network_Member__c_to_delete.csv"/>
+                   value="c:\Dev\orgclone\files\event\event_to_delete.csv"/>
             <entry key="dataAccess.readUTF8" value="true"/>
             <entry key="dataAccess.type" value="csvRead"/>
             <entry key="dataAccess.writeUTF8" value="true"/>
@@ -32,10 +32,10 @@
             <entry key="sfdc.enableRetries" value="true"/>
             <entry key="sfdc.endpoint"
                    value="https://test.salesforce.com/services/Soap/u/29.0"/>
-            <entry key="sfdc.entity" value="Contact_Network_Member__c"/>
+            <entry key="sfdc.entity" value="event"/>
             <entry key="sfdc.extractionRequestSize" value="5000"/>
             <entry key="sfdc.insertNulls" value="false"/>
-            <entry key="sfdc.loadBatchSize" value="200"/>
+            <entry key="sfdc.loadBatchSize" value="10000"/>
             <entry key="sfdc.maxRetries" value="3"/>
             <entry key="sfdc.minRetrySleepSecs" value="2"/>
             <entry key="sfdc.noCompression" value="false"/>
@@ -46,7 +46,7 @@
             <entry key="sfdc.proxyPort" value=""/>
             <entry key="sfdc.proxyUsername" value=""/>
             <entry key="sfdc.timeoutSecs" value="60"/>
-            <entry key="sfdc.useBulkApi" value="false"/>
+            <entry key="sfdc.useBulkApi" value="true"/>
             <entry key="sfdc.username" value="kgalant@wellspect.com.fullsb"/>
          </map>
       </property>
